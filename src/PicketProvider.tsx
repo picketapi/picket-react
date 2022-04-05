@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, ReactNode } from "react";
 
 import Picket, { AuthRequirements, AuthState } from "@picketapi/picket-js";
 
-import PicketContext from "./context";
+import { PicketContext } from "./context";
 
 interface ProviderProps {
   children?: ReactNode;
