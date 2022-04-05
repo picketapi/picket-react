@@ -5,7 +5,7 @@ The Picket React SDK, `picket-react`, is a JavaScript library for integrating Pi
 ## Installation
 
 ```shell
-npm install @picketapi/picket-react
+npm install "@picketapi/picket-react"
 ```
 
 ## Usage
