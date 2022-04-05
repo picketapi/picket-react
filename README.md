@@ -24,7 +24,7 @@ function MyApp({ children }) {
 }
 ```
 
-We’ve placed a random API key in this example. Replace it with your [actual api keys](https://picketapi.com/dashboard).
+The below example shows how you can leverage the picket react library to create a route/page for authorized users only. We’ve placed a random API key in this example. Replace it with your [actual api keys](https://picketapi.com/dashboard).
 
 ```tsx
 import { usePicket } from "@picketapi/picket-react"
