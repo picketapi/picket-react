@@ -1,0 +1,42 @@
+{
+  "name": "@picketapi/picket-react",
+  "version": "0.0.1",
+  "description": "React SDK for the picket-js client",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "npx swc src -d dist && npx tsc",
+    "build-verify": "npm run build && node dist/index.js",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/picketapi/picket-js.git"
+  },
+  "author": "picket",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/picketapi/picket-js/issues"
+  },
+  "homepage": "https://github.com/picketapi/picket-js#readme",
+  "dependencies": {
+    "react": "17.0.2",
+    "@picketapi/picket-js": "^0.0.12",
+    "@types/react": "^17.0.39",
+    "react-dom": "17.0.2",
+    "typescript": "4.6.2"
+  },
+  "devDependencies": {
+    "@swc/cli": "^0.1.55",
+    "@swc/core": "^1.2.154",
+    "eslint": "8.10.0",
+    "eslint-config-next": "12.1.0",
+    "prettier": "^2.5.1"
+  },
+  "keywords": [
+    "web3",
+    "authentication"
+  ]
+}
