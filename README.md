@@ -25,7 +25,7 @@ function MyApp({ children }) {
 }
 ```
 
-We’ve placed a placeholder publishable API key in this example. Replace it with your actual API key. After instantiating the PicketProvider, you can use the `usePicket` hook to get user authentication information within your app. Below is an example of a component that renders different information based on the user's authentication state.
+We’ve placed a placeholder publishable API key in this example. Replace it with your [actual publishable API key](https://picketapi.com/dashboard). After instantiating the PicketProvider, you can use the `usePicket` hook to get user authentication information within your app. Below is an example of a component that renders different information based on the user's authentication state.
 
 ```tsx
 import { usePicket } from "@picketapi/picket-react"
