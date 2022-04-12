@@ -19,7 +19,7 @@ export const PicketProvider = ({ children, apiKey }: ProviderProps) => {
   useEffect(() => {
     setIsAuthenticating(true);
     picket
-      .getAuthState()
+      .authState()
       .then((data) => {
         if (!data) return;
         setAuthState(data);

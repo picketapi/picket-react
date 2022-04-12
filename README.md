@@ -4,6 +4,7 @@ The Picket React SDK, `picket-react`, is a JavaScript library for integrating Pi
 
 ## Installation
 
+`picket-react` is an [npm package](https://www.npmjs.com/package/@picketapi/picket-react).
 ```shell
 npm install "@picketapi/picket-react"
 ```
@@ -17,14 +18,14 @@ import { PicketProvider } from "@picketapi/picket-react"
 
 function MyApp({ children }) {
   return (
-    <PicketProvider apiKey="pk_demo">
+    <PicketProvider apiKey="YOUR_PUBLISHABLE_KEY_HERE">
       {children}
     </PicketProvider>
   );
 }
 ```
 
-The below example shows how you can leverage the picket react library to create a route/page for authorized users only. We’ve placed a random API key in this example. Replace it with your [actual api keys](https://picketapi.com/dashboard).
+We’ve placed a placeholder publishable API key in this example. Replace it with your [actual publishable API key](https://picketapi.com/dashboard). After instantiating the PicketProvider, you can use the `usePicket` hook to get user authentication information within your app. Below is an example of a component that renders different information based on the user's authentication state.
 
 ```tsx
 import { usePicket } from "@picketapi/picket-react"
@@ -65,3 +66,7 @@ const MySecurePage = () => {
 ```
 
 The `usePicket` hook provides your components information about the user's authentication state. You can use it to require authentication on specific routes, get user information, or get the login and logout functions.
+
+## Documentation
+
+For more information, checkout the [docs](https://docs.picketapi.com/picket-docs/reference/libraries-and-sdks/react-sdk-picket-react)

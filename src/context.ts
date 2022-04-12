@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import Picket, { AuthRequirements, AuthState } from "@picketapi/picket-js";
+import { AuthRequirements, AuthState } from "@picketapi/picket-js";
 
 export interface IPicketContext {
   isAuthenticated: boolean;
