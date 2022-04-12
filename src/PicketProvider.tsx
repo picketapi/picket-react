@@ -1,16 +1,25 @@
 import { useState, useEffect, useCallback, ReactNode } from "react";
 
-import Picket, { AuthRequirements, AuthState } from "@picketapi/picket-js";
+import Picket, {
+  AuthRequirements,
+  AuthState,
+  PicketOptions,
+} from "@picketapi/picket-js";
 
 import { PicketContext } from "./context";
 
 interface ProviderProps {
   children?: ReactNode;
   apiKey: string;
+  options?: PicketOptions;
 }
 
-export const PicketProvider = ({ children, apiKey }: ProviderProps) => {
-  const [picket] = useState(() => new Picket(apiKey));
+export const PicketProvider = ({
+  children,
+  apiKey,
+  options,
+}: ProviderProps) => {
+  const [picket] = useState(() => new Picket(apiKey, options));
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [authState, setAuthState] = useState<AuthState>();
