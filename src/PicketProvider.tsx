@@ -8,16 +8,15 @@ import Picket, {
 
 import { PicketContext } from "./context";
 
-interface ProviderProps {
+interface ProviderProps extends PicketOptions {
   children?: ReactNode;
   apiKey: string;
-  options?: PicketOptions;
 }
 
 export const PicketProvider = ({
   children,
   apiKey,
-  options,
+  ...options
 }: ProviderProps) => {
   const [picket] = useState(() => new Picket(apiKey, options));
   const [isAuthenticated, setIsAuthenticated] = useState(false);
