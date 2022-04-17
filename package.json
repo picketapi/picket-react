@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/picketapi/picket-js.git"
+    "url": "git+https://github.com/picketapi/picket-react.git"
   },
   "author": "picket",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/picketapi/picket-js/issues"
+    "url": "https://github.com/picketapi/picket-react/issues"
   },
-  "homepage": "https://github.com/picketapi/picket-js#readme",
+  "homepage": "https://github.com/picketapi/picket-react#readme",
   "dependencies": {
     "@picketapi/picket-js": "^0.0.18",
     "@types/react": "^17.0.39",
