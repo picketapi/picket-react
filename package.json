@@ -1,11 +1,12 @@
 {
   "name": "@picketapi/picket-react",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React SDK for the picket-js client",
   "main": "dist/index.js",
   "source": "src/index.ts",
   "module": "dist/module.js",
   "types": "dist/index.d.ts",
+  "context": "browser",
   "scripts": {
     "build": "npx parcel build",
     "prepare": "npm run build",
