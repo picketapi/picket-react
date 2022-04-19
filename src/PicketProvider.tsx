@@ -4,6 +4,8 @@ import Picket, {
   AuthRequirements,
   AuthState,
   PicketOptions,
+  NonceResponse,
+  ConnectResponse,
 } from "@picketapi/picket-js";
 
 import { PicketContext } from "./context";
@@ -56,14 +58,21 @@ export const PicketProvider = ({
   );
 
   const logout = useCallback(async (): Promise<void> => {
-    try {
-      await picket.logout();
-      setIsAuthenticated(false);
-      setAuthState(undefined);
-    } catch (err) {
-      console.error("picket: logout error", err);
-    }
+    await picket.logout();
+    setIsAuthenticated(false);
+    setAuthState(undefined);
   }, [picket]);
+
+  const connect = useCallback(
+    async (): Promise<ConnectResponse> => await picket.connect(),
+    [picket]
+  );
+
+  const nonce = useCallback(
+    async (walletAddress: string): Promise<NonceResponse> =>
+      await picket.nonce(walletAddress),
+    [picket]
+  );
 
   const value = {
     isAuthenticating,
@@ -71,6 +80,8 @@ export const PicketProvider = ({
     authState,
     login,
     logout,
+    connect,
+    nonce,
   };
 
   return (

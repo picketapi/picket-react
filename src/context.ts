@@ -1,12 +1,19 @@
 import { createContext } from "react";
 
-import { AuthRequirements, AuthState } from "@picketapi/picket-js";
+import {
+  AuthRequirements,
+  AuthState,
+  ConnectResponse,
+  NonceResponse,
+} from "@picketapi/picket-js";
 
 export interface IPicketContext {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
   login: (opts?: AuthRequirements) => Promise<AuthState | undefined>;
   logout: () => Promise<void>;
+  connect: () => Promise<ConnectResponse>;
+  nonce: (walletAddress: string) => Promise<NonceResponse>;
   authState?: AuthState;
   // TODO: Consider Error state
 }

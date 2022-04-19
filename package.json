@@ -1,6 +1,6 @@
 {
   "name": "@picketapi/picket-react",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "React SDK for the picket-js client",
   "main": "dist/index.js",
   "source": "src/index.ts",
