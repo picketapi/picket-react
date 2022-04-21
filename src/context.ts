@@ -7,14 +7,14 @@ import {
   NonceResponse,
   AuthorizationURLRequest,
   LoginRequest,
+  LoginOptions,
   LoginCallbackResponse,
 } from "@picketapi/picket-js";
 
 export interface IPicketContext {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
-  login: (opts?: AuthRequirements) => Promise<AuthState | undefined>;
-  loginWithRedirect: (opts?: LoginRequest) => Promise<void>;
+  login: (req?: LoginRequest, opts?: LoginOptions) => Promise<void>;
   handleLoginRedirect: (
     url?: string
   ) => Promise<LoginCallbackResponse | undefined>;
