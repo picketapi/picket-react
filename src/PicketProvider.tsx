@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback, ReactNode } from "react";
 
 import Picket, {
-  AuthRequirements,
   AuthState,
   PicketOptions,
   NonceResponse,
   ConnectResponse,
   LoginRequest,
+  LoginOptions,
   AuthorizationURLRequest,
   hasAuthorizationCodeParams,
   defaultLoginRedirectCallback,
@@ -64,11 +64,11 @@ export const PicketProvider = ({
     })();
   }, [picket, loginRedirectCallback]);
 
-  const loginWithRedirect = useCallback(
-    async (opts?: LoginRequest) => {
-      setIsAuthenticating(true);
+  const login = useCallback(
+    async (req?: LoginRequest, opts?: LoginOptions) => {
       try {
-        await picket.loginWithRedirect(opts);
+        setIsAuthenticating(true);
+        await picket.login(req, opts);
       } catch (err) {
         setIsAuthenticated(false);
         if (err instanceof Error) {
@@ -111,27 +111,6 @@ export const PicketProvider = ({
     [picket]
   );
 
-  const login = useCallback(
-    async (opts: AuthRequirements = {}): Promise<AuthState | undefined> => {
-      let resp;
-      try {
-        setIsAuthenticating(true);
-        resp = await picket.login(opts);
-        setAuthState(resp);
-        setIsAuthenticated(true);
-      } catch (err) {
-        setIsAuthenticated(false);
-        if (err instanceof Error) {
-          setError(err);
-        }
-      } finally {
-        setIsAuthenticating(false);
-      }
-      return resp;
-    },
-    [picket]
-  );
-
   const logout = useCallback(async (): Promise<void> => {
     await picket.logout();
     setIsAuthenticated(false);
@@ -155,7 +134,6 @@ export const PicketProvider = ({
     authState,
     error,
     login,
-    loginWithRedirect,
     handleLoginRedirect,
     getAuthorizationURL,
     logout,
