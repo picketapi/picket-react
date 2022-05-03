@@ -53,6 +53,8 @@ export const PicketProvider = ({
 
         setAuthState(auth);
         setIsAuthenticated(true);
+        // clear error state
+        setError(undefined);
       } catch (err) {
         setIsAuthenticated(false);
         if (err instanceof Error) {
@@ -101,6 +103,8 @@ export const PicketProvider = ({
 
         setAuthState(auth);
         setIsAuthenticated(true);
+        // clear error state
+        setError(undefined);
       }
     },
     [picket]
