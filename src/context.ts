@@ -1,7 +1,6 @@
 import { createContext } from "react";
 
-import {
-  AuthRequirements,
+import Picket, {
   AuthState,
   ConnectResponse,
   NonceResponse,
@@ -11,17 +10,20 @@ import {
   LoginCallbackResponse,
 } from "@picketapi/picket-js";
 
+type IPicket = InstanceType<typeof Picket>;
+
 export interface IPicketContext {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
-  login: (req?: LoginRequest, opts?: LoginOptions) => Promise<void>;
+  login: IPicket["login"];
+  // handleLoginRedirect wrapper catches errors and potentially returns undefined unlike Picket class
   handleLoginRedirect: (
     url?: string
   ) => Promise<LoginCallbackResponse | undefined>;
-  getAuthorizationURL: (opts: AuthorizationURLRequest) => string;
-  logout: () => Promise<void>;
-  connect: () => Promise<ConnectResponse>;
-  nonce: (walletAddress: string) => Promise<NonceResponse>;
+  getAuthorizationURL: IPicket["getAuthorizationURL"];
+  logout: IPicket["logout"];
+  connect: IPicket["connect"];
+  nonce: IPicket["nonce"];
   authState?: AuthState;
   error?: Error;
 }

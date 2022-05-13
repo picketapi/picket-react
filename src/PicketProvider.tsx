@@ -3,11 +3,8 @@ import { useState, useEffect, useCallback, ReactNode } from "react";
 import Picket, {
   AuthState,
   PicketOptions,
-  NonceResponse,
-  ConnectResponse,
   LoginRequest,
   LoginOptions,
-  AuthorizationURLRequest,
   hasAuthorizationCodeParams,
   defaultLoginRedirectCallback,
 } from "@picketapi/picket-js";
@@ -110,8 +107,8 @@ export const PicketProvider = ({
     [picket]
   );
 
-  const getAuthorizationURL = useCallback(
-    (opts: AuthorizationURLRequest): string => picket.getAuthorizationURL(opts),
+  const getAuthorizationURL: typeof picket.getAuthorizationURL = useCallback(
+    (...args) => picket.getAuthorizationURL(...args),
     [picket]
   );
 
@@ -121,14 +118,13 @@ export const PicketProvider = ({
     setAuthState(undefined);
   }, [picket]);
 
-  const connect = useCallback(
-    async (): Promise<ConnectResponse> => await picket.connect(),
+  const connect: typeof picket.connect = useCallback(
+    async (...args) => await picket.connect(...args),
     [picket]
   );
 
-  const nonce = useCallback(
-    async (walletAddress: string): Promise<NonceResponse> =>
-      await picket.nonce(walletAddress),
+  const nonce: typeof picket.nonce = useCallback(
+    async (...args) => await picket.nonce(...args),
     [picket]
   );
 
