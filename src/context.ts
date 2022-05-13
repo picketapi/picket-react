@@ -1,14 +1,6 @@
 import { createContext } from "react";
 
-import Picket, {
-  AuthState,
-  ConnectResponse,
-  NonceResponse,
-  AuthorizationURLRequest,
-  LoginRequest,
-  LoginOptions,
-  LoginCallbackResponse,
-} from "@picketapi/picket-js";
+import Picket, { AuthState, LoginCallbackResponse } from "@picketapi/picket-js";
 
 type IPicket = InstanceType<typeof Picket>;
 
