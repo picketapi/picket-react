@@ -80,6 +80,50 @@ export const PicketProvider = ({
     [picket]
   );
 
+  const loginWithRedirect = useCallback(
+    async (req?: LoginRequest, opts?: LoginOptions) => {
+      try {
+        setIsAuthenticating(true);
+        await picket.loginWithRedirect(req, opts);
+      } catch (err) {
+        setIsAuthenticated(false);
+        if (err instanceof Error) {
+          setError(err);
+        }
+      } finally {
+        setIsAuthenticating(false);
+      }
+    },
+    [picket]
+  );
+
+  const loginWithPopup = useCallback(
+    async (
+      req?: LoginRequest,
+      opts?: LoginOptions
+    ): Promise<AuthState | undefined> => {
+      try {
+        setIsAuthenticating(true);
+        const auth = await picket.loginWithPopup(req, opts);
+
+        setAuthState(auth);
+        setIsAuthenticated(true);
+        // clear error state
+        setError(undefined);
+
+        return auth;
+      } catch (err) {
+        setIsAuthenticated(false);
+        if (err instanceof Error) {
+          setError(err);
+        }
+      } finally {
+        setIsAuthenticating(false);
+      }
+    },
+    [picket]
+  );
+
   const handleLoginRedirect = useCallback(
     async (url?: string) => {
       try {
@@ -134,6 +178,8 @@ export const PicketProvider = ({
     authState,
     error,
     login,
+    loginWithRedirect,
+    loginWithPopup,
     handleLoginRedirect,
     getAuthorizationURL,
     logout,
