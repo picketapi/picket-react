@@ -1,6 +1,11 @@
 import { createContext } from "react";
 
-import Picket, { AuthState, LoginCallbackResponse } from "@picketapi/picket-js";
+import Picket, {
+  AuthState,
+  LoginCallbackResponse,
+  LoginRequest,
+  LoginOptions,
+} from "@picketapi/picket-js";
 
 type IPicket = InstanceType<typeof Picket>;
 
@@ -8,6 +13,12 @@ export interface IPicketContext {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
   login: IPicket["login"];
+  loginWithRedirect: IPicket["loginWithRedirect"];
+  // loginWithPopup wrapper catches errors and potentially returns undefined unlike Picket class
+  loginWithPopup: (
+    req?: LoginRequest,
+    opts?: LoginOptions
+  ) => Promise<AuthState | undefined>;
   // handleLoginRedirect wrapper catches errors and potentially returns undefined unlike Picket class
   handleLoginRedirect: (
     url?: string
