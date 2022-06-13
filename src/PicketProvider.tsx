@@ -64,10 +64,17 @@ export const PicketProvider = ({
   }, [picket, loginRedirectCallback]);
 
   const login = useCallback(
-    async (req?: LoginRequest, opts?: LoginOptions) => {
+    async (req?: LoginRequest): Promise<AuthState | undefined> => {
       try {
         setIsAuthenticating(true);
-        await picket.login(req, opts);
+        const auth = await picket.login(req);
+
+        setAuthState(auth);
+        setIsAuthenticated(true);
+        // clear error state
+        setError(undefined);
+
+        return auth;
       } catch (err) {
         setIsAuthenticated(false);
         if (err instanceof Error) {

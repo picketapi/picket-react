@@ -12,7 +12,8 @@ type IPicket = InstanceType<typeof Picket>;
 export interface IPicketContext {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
-  login: IPicket["login"];
+  // login wrapper catches errors and potentially returns undefined unlike Picket class
+  login: (req?: LoginRequest) => Promise<AuthState | undefined>;
   loginWithRedirect: IPicket["loginWithRedirect"];
   // loginWithPopup wrapper catches errors and potentially returns undefined unlike Picket class
   loginWithPopup: (
