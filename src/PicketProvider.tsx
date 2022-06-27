@@ -7,6 +7,7 @@ import Picket, {
   LoginOptions,
   hasAuthorizationCodeParams,
   defaultLoginRedirectCallback,
+  ErrorResponse,
 } from "@picketapi/picket-js";
 
 import { PicketContext } from "./context";
@@ -27,7 +28,7 @@ export const PicketProvider = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [authState, setAuthState] = useState<AuthState>();
-  const [error, setError] = useState<Error>();
+  const [error, setError] = useState<Error | ErrorResponse>();
 
   // on mount,
   // 1. check if we are in authorization code flow, if so finish the flow
@@ -56,6 +57,11 @@ export const PicketProvider = ({
         setIsAuthenticated(false);
         if (err instanceof Error) {
           setError(err);
+          return;
+        }
+        if (err instanceof Object && "msg" in err) {
+          setError(err as ErrorResponse);
+          return;
         }
       } finally {
         setIsAuthenticating(false);
@@ -79,6 +85,11 @@ export const PicketProvider = ({
         setIsAuthenticated(false);
         if (err instanceof Error) {
           setError(err);
+          return;
+        }
+        if (err instanceof Object && "msg" in err) {
+          setError(err as ErrorResponse);
+          return;
         }
       } finally {
         setIsAuthenticating(false);
@@ -96,6 +107,11 @@ export const PicketProvider = ({
         setIsAuthenticated(false);
         if (err instanceof Error) {
           setError(err);
+          return;
+        }
+        if (err instanceof Object && "msg" in err) {
+          setError(err as ErrorResponse);
+          return;
         }
       } finally {
         setIsAuthenticating(false);
@@ -123,6 +139,11 @@ export const PicketProvider = ({
         setIsAuthenticated(false);
         if (err instanceof Error) {
           setError(err);
+          return;
+        }
+        if (err instanceof Object && "msg" in err) {
+          setError(err as ErrorResponse);
+          return;
         }
       } finally {
         setIsAuthenticating(false);
@@ -140,6 +161,11 @@ export const PicketProvider = ({
         setIsAuthenticated(false);
         if (err instanceof Error) {
           setError(err);
+          return;
+        }
+        if (err instanceof Object && "msg" in err) {
+          setError(err as ErrorResponse);
+          return;
         }
       } finally {
         setIsAuthenticating(false);

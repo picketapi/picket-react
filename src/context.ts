@@ -5,6 +5,7 @@ import Picket, {
   LoginCallbackResponse,
   LoginRequest,
   LoginOptions,
+  ErrorResponse,
 } from "@picketapi/picket-js";
 
 type IPicket = InstanceType<typeof Picket>;
@@ -29,7 +30,7 @@ export interface IPicketContext {
   connect: IPicket["connect"];
   nonce: IPicket["nonce"];
   authState?: AuthState;
-  error?: Error;
+  error?: Error | ErrorResponse;
 }
 
 // @ts-ignore Ignore missing picket key, so we don't have to initialize here
