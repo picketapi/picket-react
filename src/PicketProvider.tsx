@@ -209,18 +209,24 @@ export const PicketProvider = ({
 
   const isAuthorized: typeof picket.isCurrentUserAuthorized = useCallback(
     async ({ requirements, revalidate = false }) => {
-      setIsAuthorizing(true);
-      const allowed = await picket.isCurrentUserAuthorized({
-        requirements,
-        revalidate,
-      });
+      try {
+        setIsAuthorizing(true);
+        const allowed = await picket.isCurrentUserAuthorized({
+          requirements,
+          revalidate,
+        });
 
-      // refresh local auth state
-      const auth = await picket.authState();
-      setAuthState(auth || undefined);
+        // refresh local auth state
+        const auth = await picket.authState();
+        setAuthState(auth || undefined);
 
-      setIsAuthorizing(false);
-      return allowed;
+        setIsAuthorizing(false);
+        return allowed;
+      } catch (err) {
+        console.error(err);
+        // should never happen but to be safe
+        return false;
+      }
     },
     [picket]
   );
@@ -229,10 +235,17 @@ export const PicketProvider = ({
     (requirements: AuthRequirements) => {
       if (!authState) return false;
       const { user } = authState;
-      return Picket.meetsAuthRequirements({
-        user,
-        requirements,
-      });
+
+      try {
+        return Picket.meetsAuthRequirements({
+          user,
+          requirements,
+        });
+      } catch (err) {
+        console.error(err);
+        // should never happen but to be safe
+        return false;
+      }
     },
     [authState]
   );
