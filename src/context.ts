@@ -6,6 +6,7 @@ import Picket, {
   LoginRequest,
   LoginOptions,
   ErrorResponse,
+  AuthRequirements,
 } from "@picketapi/picket-js";
 
 type IPicket = InstanceType<typeof Picket>;
@@ -31,12 +32,27 @@ export interface IPicketContext {
   nonce: IPicket["nonce"];
   authState?: AuthState;
   error?: Error | ErrorResponse;
+
+  // consider making this requirements specific
+  // Record<string, boolean>
+  isAuthorizing: boolean;
+  // isAuthorized is a wrapper around isCurrentUserAuthorized
+  isAuthorized: ({
+    requirements,
+    revalidate,
+  }: {
+    requirements: AuthRequirements;
+    revalidate?: boolean;
+  }) => Promise<boolean>;
+  // isAlreadyAuthorized is a synchronous, local only version of isAuthorized
+  isAlreadyAuthorized: (requirements: AuthRequirements) => boolean;
 }
 
 // @ts-ignore Ignore missing picket key, so we don't have to initialize here
 const initialContext: IPicketContext = {
   isAuthenticating: true,
   isAuthenticated: false,
+  isAuthorizing: false,
 };
 
 export const PicketContext = createContext(initialContext);

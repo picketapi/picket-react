@@ -8,6 +8,7 @@ import Picket, {
   hasAuthorizationCodeParams,
   defaultLoginRedirectCallback,
   ErrorResponse,
+  AuthRequirements,
 } from "@picketapi/picket-js";
 
 import { PicketContext } from "./context";
@@ -27,6 +28,7 @@ export const PicketProvider = ({
   const [picket] = useState(() => new Picket(apiKey, options));
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthorizing, setIsAuthorizing] = useState(false);
   const [authState, setAuthState] = useState<AuthState>();
   const [error, setError] = useState<Error | ErrorResponse>();
 
@@ -205,9 +207,54 @@ export const PicketProvider = ({
     [picket]
   );
 
+  const isAuthorized: typeof picket.isCurrentUserAuthorized = useCallback(
+    async ({ requirements, revalidate = false }) => {
+      try {
+        setIsAuthorizing(true);
+        const allowed = await picket.isCurrentUserAuthorized({
+          requirements,
+          revalidate,
+        });
+
+        // refresh local auth state
+        const auth = await picket.authState();
+        setAuthState(auth || undefined);
+
+        return allowed;
+      } catch (err) {
+        console.error(err);
+        // should never happen but to be safe
+        return false;
+      } finally {
+        setIsAuthorizing(false);
+      }
+    },
+    [picket]
+  );
+
+  const isAlreadyAuthorized = useCallback(
+    (requirements: AuthRequirements) => {
+      if (!authState) return false;
+      const { user } = authState;
+
+      try {
+        return Picket.meetsAuthRequirements({
+          user,
+          requirements,
+        });
+      } catch (err) {
+        console.error(err);
+        // should never happen but to be safe
+        return false;
+      }
+    },
+    [authState]
+  );
+
   const value = {
     isAuthenticating,
     isAuthenticated,
+    isAuthorizing,
     authState,
     error,
     login,
@@ -218,6 +265,8 @@ export const PicketProvider = ({
     logout,
     connect,
     nonce,
+    isAuthorized,
+    isAlreadyAuthorized,
   };
 
   return (
