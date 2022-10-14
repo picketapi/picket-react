@@ -220,12 +220,13 @@ export const PicketProvider = ({
         const auth = await picket.authState();
         setAuthState(auth || undefined);
 
-        setIsAuthorizing(false);
         return allowed;
       } catch (err) {
         console.error(err);
         // should never happen but to be safe
         return false;
+      } finally {
+        setIsAuthorizing(false);
       }
     },
     [picket]
