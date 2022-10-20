@@ -1,6 +1,6 @@
 {
   "name": "@picketapi/picket-react",
-  "version": "0.0.61",
+  "version": "0.0.62",
   "description": "React SDK for the picket-js client",
   "main": "dist/index.js",
   "source": "src/index.ts",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/picketapi/picket-react#readme",
   "dependencies": {
-    "@picketapi/picket-js": "^0.0.77",
+    "@picketapi/picket-js": "^0.0.78",
     "@rainbow-me/rainbowkit": "^0.7.2",
     "@types/react": "^16.0.0 || ^17.0.0 || ^18.0.0",
     "@types/react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0",
