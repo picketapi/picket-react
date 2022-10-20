@@ -14,7 +14,7 @@ import Picket, {
 
 import { PicketContext } from "./context";
 
-interface ProviderProps extends PicketOptions {
+export interface ProviderProps extends PicketOptions {
   children?: ReactNode;
   loginRedirectCallback?: typeof defaultLoginRedirectCallback;
   apiKey: string;
