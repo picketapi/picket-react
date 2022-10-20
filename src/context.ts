@@ -6,6 +6,7 @@ import Picket, {
   LoginRequest,
   LoginOptions,
   ErrorResponse,
+  AuthRequest,
   AuthRequirements,
 } from "@picketapi/picket-js";
 
@@ -30,6 +31,7 @@ export interface IPicketContext {
   logout: IPicket["logout"];
   connect: IPicket["connect"];
   nonce: IPicket["nonce"];
+  auth: (args: AuthRequest) => Promise<AuthState | undefined>;
   authState?: AuthState;
   error?: Error | ErrorResponse;
 
