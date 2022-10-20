@@ -8,6 +8,7 @@ import Picket, {
   hasAuthorizationCodeParams,
   defaultLoginRedirectCallback,
   ErrorResponse,
+  AuthRequest,
   AuthRequirements,
 } from "@picketapi/picket-js";
 
@@ -207,6 +208,35 @@ export const PicketProvider = ({
     [picket]
   );
 
+  // wrapper around picket.auth
+  // this enables users to use their own frontend (login modal), like RainbowKit
+  const auth = useCallback(
+    async (args: AuthRequest): Promise<AuthState | undefined> => {
+      try {
+        setIsAuthenticating(true);
+        const data = await picket.auth(args);
+        setAuthState(data);
+        setIsAuthenticated(true);
+        // clear error state
+        setError(undefined);
+        return data;
+      } catch (err) {
+        setIsAuthenticated(false);
+        if (err instanceof Error) {
+          setError(err);
+          return;
+        }
+        if (err instanceof Object && "msg" in err) {
+          setError(err as ErrorResponse);
+          return;
+        }
+      } finally {
+        setIsAuthenticating(false);
+      }
+    },
+    [picket]
+  );
+
   const isAuthorized: typeof picket.isCurrentUserAuthorized = useCallback(
     async ({ requirements, revalidate = false }) => {
       try {
@@ -265,6 +295,7 @@ export const PicketProvider = ({
     logout,
     connect,
     nonce,
+    auth,
     isAuthorized,
     isAlreadyAuthorized,
   };
