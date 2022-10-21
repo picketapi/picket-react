@@ -1,15 +1,21 @@
 {
   "name": "@picketapi/picket-react",
-  "version": "0.0.63",
+  "version": "0.0.64",
   "description": "React SDK for the picket-js client",
   "main": "dist/index.js",
   "source": "src/index.ts",
-  "module": "dist/module.js",
+  "type": "module",
   "types": "dist/index.d.ts",
-  "context": "browser",
+  "targets": {
+    "main": {
+      "context": "browser"
+    }
+  },
   "scripts": {
     "build": "npx parcel build",
     "prepare": "npm run build",
+    "watch": "npx parcel watch",
+    "check": "npx tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -33,12 +39,15 @@
     "wagmi": "^0.6.8"
   },
   "devDependencies": {
-    "@parcel/packager-ts": "^2.4.1",
-    "@parcel/transformer-typescript-types": "^2.4.1",
+    "@parcel/packager-ts": "latest",
+    "@parcel/reporter-bundle-analyzer": "latest",
+    "@parcel/transformer-typescript-tsc": "latest",
+    "@parcel/transformer-typescript-types": "latest",
+    "@parcel/transformer-svg-react": "latest",
     "eslint": "8.10.0",
     "eslint-config-next": "^12.3.1",
-    "parcel": "^2.4.1",
-    "prettier": "^2.5.1"
+    "parcel": "latest",
+    "prettier": "latest"
   },
   "keywords": [
     "web3",

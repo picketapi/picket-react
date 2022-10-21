@@ -6,3 +6,4 @@ dist
 .vim
 
 .parcel-cache
+parcel-bundle-reports
